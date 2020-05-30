@@ -13,6 +13,60 @@ nav .brand-logo i.material-icons {
   margin-right: 5px;
 }
 
+.chart {
+  margin-top: 3rem;
+}
+
+.chart::before {
+  position: absolute;
+  top: 50px;
+  left: 300px;
+  z-index: -1;
+  display: block;
+  width: 400px;
+  height: 300px;
+  content: " ";
+  background-image: url("maxresdefault.jpg");
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: cover;
+  opacity: 0.3;
+}
+
+.tooltip {
+  position: absolute;
+  width: 135px;
+  height: 60px;
+  padding: 2px;
+  padding-top: 8px;
+  font: 12px sans-serif;
+  color: white;
+  text-align: center;
+  background: #551aaf;
+  border: 0;
+  border-radius: 10px;
+}
+
+.active {
+  font-weight: bold;
+  /* fill: #1a5baf; */
+  fill: #ee6e73;
+  transition: fill 0.3s ease-out;
+  text-anchor: middle;
+}
+
+.inactive {
+  font-weight: bold;
+  fill: rgba(139, 139, 139, 0.5);
+  transition: fill 0.3s ease-out;
+  text-anchor: middle;
+}
+
+.inactive:hover {
+  fill: rgba(26, 91, 175, 0.6);
+  cursor: pointer;
+}
+
 .page-footer {
   padding-top: 0;
 }
