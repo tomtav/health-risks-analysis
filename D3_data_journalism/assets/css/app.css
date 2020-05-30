@@ -1,0 +1,22 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+nav .brand-logo i.material-icons {
+  font-size: 3rem;
+  margin-right: 5px;
+}
+
+.page-footer {
+  padding-top: 0;
+}
+
+.footer-copyright > .container {
+  width: 90%;
+}
