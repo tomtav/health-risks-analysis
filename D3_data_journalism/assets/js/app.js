@@ -114,7 +114,7 @@ function updateToolTip(circlesGroup, chosenXAxis, chosenYAxis) {
   } else if (chosenYAxis === 'smokes') {
     labelY = 'Smokes:';
   } else {
-    labelY = 'Obese:'
+    labelY = 'Obesity:'
   }
 
   var toolTip = d3.tip()
@@ -124,18 +124,29 @@ function updateToolTip(circlesGroup, chosenXAxis, chosenYAxis) {
       return (`
       <center><b>${d.state}</b></center>
       <hr>
-      ${labelX} ${d[chosenXAxis]}<br>
-      ${labelY} ${d[chosenYAxis]}
+      ${labelX} ${d[chosenXAxis]}%<br>
+      ${labelY} ${d[chosenYAxis]}%
       `);
     });
 
   circlesGroup.call(toolTip);
 
   circlesGroup.on("mouseover", function (data) {
+    d3.select(this).select('circle')
+      .transition()
+      .ease(d3.easeCubic)
+      .duration(300)
+      .style("stroke", "#ee6e73")
+      .style("stroke-width", "2px")
     toolTip.show(data);
   })
     // onmouseout event
     .on("mouseout", function (data, index) {
+      d3.select(this).select('circle')
+        .transition()
+        .ease(d3.easeCubic)
+        .duration(300)
+        .style("stroke", "transparent")
       toolTip.hide(data);
     });
 
@@ -242,6 +253,7 @@ d3.csv("assets/data/data.csv").then(function (acsData, err) {
     .data(acsData)
     .enter()
     .append("g")
+    .style("cursor", "pointer")
     .classed("circle-group", true)
 
 
@@ -249,14 +261,9 @@ d3.csv("assets/data/data.csv").then(function (acsData, err) {
     .append("circle")
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
     .attr("cy", d => yLinearScale(d[chosenYAxis]))
-    .attr("r", 12)
+    .attr("r", 10)
     .attr("fill", "#45ADA8")
-  //.attr("opacity", ".5");
 
-  /*  var textGroup = circlesGroup.selectAll('text')
-     .data(acsData)
-     .enter()
-     .append('text') */
   var textGroup = circles.append('text')
     .attr("x", d => xLinearScale(d[chosenXAxis]))
     .attr("y", d => yLinearScale(d[chosenYAxis]) + 2)
@@ -265,8 +272,6 @@ d3.csv("assets/data/data.csv").then(function (acsData, err) {
     .attr("font-size", ".6rem")
     .attr("fill", "white")
     .attr("text-anchor", "middle")
-    .style("cursor", "pointer");
-
 
   // updateToolTip function above csv import
   updateToolTip(circles, chosenXAxis, chosenYAxis);
