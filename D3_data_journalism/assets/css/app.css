@@ -26,7 +26,7 @@ nav .brand-logo i.material-icons {
   width: 400px;
   height: 300px;
   content: " ";
-  background-image: url("maxresdefault.jpg");
+  /* background-image: url("maxresdefault.jpg"); */
   background-repeat: no-repeat;
   background-position: 50% 0;
   background-size: cover;
@@ -36,20 +36,40 @@ nav .brand-logo i.material-icons {
 .tooltip {
   position: absolute;
   width: 135px;
-  height: 60px;
+  height: auto;
   padding: 2px;
   padding-top: 8px;
+  padding-bottom: 8px;
   font: 12px sans-serif;
   color: white;
   text-align: center;
-  background: #551aaf;
+  background: #ee6e73;
   border: 0;
   border-radius: 10px;
 }
 
+/* Creates a small triangle extender for the tooltip */
+.tooltip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 20px;
+  line-height: 1;
+  color: #ee6e73;
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips specifically */
+.tooltip.n:after {
+  margin: -2px 0 0 0;
+  top: 100%;
+  left: 42%;
+}
+
+
 .active {
   font-weight: bold;
-  /* fill: #1a5baf; */
   fill: #ee6e73;
   transition: fill 0.3s ease-out;
   text-anchor: middle;
