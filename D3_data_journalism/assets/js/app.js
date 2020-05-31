@@ -91,7 +91,6 @@ function renderText(textGroup, newXScale, chosenXAxis, newYScale, chosenYAxis) {
     .attr("y", d => newYScale(d[chosenYAxis]))
     .text(function (d) { return d.abbr })
     .attr("font-family", "sans-serif")
-    //.attr("font-size", "20px")
     .attr("fill", "white")
 
   return textGroup;
@@ -176,34 +175,8 @@ d3.csv("assets/data/data.csv").then(function (acsData, err) {
 
   // append y axis
   var yAxis = chartGroup.append("g")
+    .classed("y-axis", true)
     .call(leftAxis);
-
-  // append initial circles
-  var circlesGroup = chartGroup.selectAll("circle")
-    .data(acsData)
-    .enter()
-    .append("circle")
-
-  circlesGroup
-    .attr("cx", d => xLinearScale(d[chosenXAxis]))
-    .attr("cy", d => yLinearScale(d[chosenYAxis]))
-    .attr("r", 10)
-    .attr("fill", "lightblue")
-  //.attr("opacity", ".5");
-
-  var textGroup = chartGroup.selectAll("text")
-    .data(acsData)
-    .enter()
-    .append('text')
-
-  //Add the text attributes
-  var textLabels = textGroup
-    .attr("x", d => xLinearScale(d[chosenXAxis]) - 6)
-    .attr("y", d => yLinearScale(d[chosenYAxis]) + 3)
-    .text(function (d) { return d.abbr; })
-    .attr("font-family", "sans-serif")
-    .attr("font-size", ".6rem")
-    .attr("fill", "white");
 
   // Create group for two x-axis labels
   var xLabelsGroup = chartGroup.append("g")
@@ -258,6 +231,41 @@ d3.csv("assets/data/data.csv").then(function (acsData, err) {
     .attr("value", "obesity")
     .classed("inactive", true)
     .text("Obese (%)");
+
+
+  // Create group for main plot
+  var chartArea = chartGroup.append("g")
+    .classed("main-chart", true)
+
+  // append initial circles
+  var circles = chartArea.selectAll("g")
+    .data(acsData)
+    .enter()
+    .append("g")
+    .classed("circle-group", true)
+
+
+  var circlesGroup = circles
+    .append("circle")
+    .attr("cx", d => xLinearScale(d[chosenXAxis]))
+    .attr("cy", d => yLinearScale(d[chosenYAxis]))
+    .attr("r", 10)
+    .attr("fill", "lightblue")
+  //.attr("opacity", ".5");
+
+  /*  var textGroup = circlesGroup.selectAll('text')
+     .data(acsData)
+     .enter()
+     .append('text') */
+  var textGroup = circles.append('text')
+    .attr("x", d => xLinearScale(d[chosenXAxis]))
+    .attr("y", d => yLinearScale(d[chosenYAxis]))
+    .text(function (d) { return d.abbr; })
+    .attr("font-family", "sans-serif")
+    .attr("font-size", ".6rem")
+    .attr("fill", "white")
+    .attr("text-anchor", "middle");
+
 
   // updateToolTip function above csv import
   var circlesGroup = updateToolTip(circlesGroup, chosenXAxis, chosenYAxis);
@@ -349,8 +357,9 @@ d3.csv("assets/data/data.csv").then(function (acsData, err) {
         xAxis = axes[0]
         yAxis = axes[1]
 
-        // updates circles with new x values
+        // updates circles with new y values
         circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
+        textGroup = renderText(textGroup, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
 
         // updates tooltips with new info
         circlesGroup = updateToolTip(circlesGroup, chosenXAxis, chosenYAxis);
