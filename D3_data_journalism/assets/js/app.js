@@ -88,7 +88,7 @@ function renderText(textGroup, newXScale, chosenXAxis, newYScale, chosenYAxis) {
     .ease(d3.easeCircle)
     .duration(1000)
     .attr("x", d => newXScale(d[chosenXAxis]))
-    .attr("y", d => newYScale(d[chosenYAxis]))
+    .attr("y", d => newYScale(d[chosenYAxis]) + 2)
     .text(function (d) { return d.abbr })
     .attr("font-family", "sans-serif")
     .attr("fill", "white")
@@ -249,8 +249,8 @@ d3.csv("assets/data/data.csv").then(function (acsData, err) {
     .append("circle")
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
     .attr("cy", d => yLinearScale(d[chosenYAxis]))
-    .attr("r", 10)
-    .attr("fill", "lightblue")
+    .attr("r", 12)
+    .attr("fill", "#45ADA8")
   //.attr("opacity", ".5");
 
   /*  var textGroup = circlesGroup.selectAll('text')
@@ -259,16 +259,17 @@ d3.csv("assets/data/data.csv").then(function (acsData, err) {
      .append('text') */
   var textGroup = circles.append('text')
     .attr("x", d => xLinearScale(d[chosenXAxis]))
-    .attr("y", d => yLinearScale(d[chosenYAxis]))
+    .attr("y", d => yLinearScale(d[chosenYAxis]) + 2)
     .text(function (d) { return d.abbr; })
     .attr("font-family", "sans-serif")
     .attr("font-size", ".6rem")
     .attr("fill", "white")
-    .attr("text-anchor", "middle");
+    .attr("text-anchor", "middle")
+    .style("cursor", "pointer");
 
 
   // updateToolTip function above csv import
-  var circlesGroup = updateToolTip(circlesGroup, chosenXAxis, chosenYAxis);
+  updateToolTip(circles, chosenXAxis, chosenYAxis);
 
   // x axis labels event listener
   xLabelsGroup.selectAll("text")
@@ -297,7 +298,7 @@ d3.csv("assets/data/data.csv").then(function (acsData, err) {
         textGroup = renderText(textGroup, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
 
         // updates tooltips with new info
-        circlesGroup = updateToolTip(circlesGroup, chosenXAxis, chosenYAxis);
+        updateToolTip(circles, chosenXAxis, chosenYAxis);
 
         // changes classes to change bold text
         if (chosenXAxis === "poverty") {
@@ -362,7 +363,7 @@ d3.csv("assets/data/data.csv").then(function (acsData, err) {
         textGroup = renderText(textGroup, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
 
         // updates tooltips with new info
-        circlesGroup = updateToolTip(circlesGroup, chosenXAxis, chosenYAxis);
+        updateToolTip(circles, chosenXAxis, chosenYAxis);
 
         // changes classes to change bold text
         if (chosenYAxis === "healthcare") {

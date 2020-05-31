@@ -46,6 +46,7 @@ nav .brand-logo i.material-icons {
   background: #ee6e73;
   border: 0;
   border-radius: 10px;
+  transition: opacity 300ms;
 }
 
 /* Creates a small triangle extender for the tooltip */
@@ -70,7 +71,8 @@ nav .brand-logo i.material-icons {
 
 .active {
   font-weight: bold;
-  fill: #ee6e73;
+  /* fill: #ee6e73 */;
+  fill: #547980;
   transition: fill 0.3s ease-out;
   text-anchor: middle;
 }
@@ -83,7 +85,7 @@ nav .brand-logo i.material-icons {
 }
 
 .inactive:hover {
-  fill: rgba(26, 91, 175, 0.6);
+  fill: rgba(69, 173, 168, 0.836);
   cursor: pointer;
 }
 
