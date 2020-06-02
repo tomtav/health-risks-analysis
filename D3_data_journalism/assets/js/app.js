@@ -125,7 +125,7 @@ function updateToolTip(circlesGroup, chosenXAxis, chosenYAxis) {
       return (`
       <center><b>${d.state}</b></center>
       <hr>
-      ${labelX} ${d[chosenXAxis]}%<br>
+      ${labelX} ${d[chosenXAxis]} ${chosenXAxis === 'poverty' ? '%' : ''}<br>
       ${labelY} ${d[chosenYAxis]}%
       `);
     });
