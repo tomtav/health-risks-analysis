@@ -8,16 +8,31 @@ main {
   flex: 1 0 auto;
 }
 
+nav .brand-logo {
+  left: 0;
+  transform: translateX(0);
+}
+
 nav .brand-logo i.material-icons {
   font-size: 3rem;
   margin-right: 5px;
 }
 
-.chart {
-  margin-top: 3rem;
+.container {
+  width: 95%;
+  max-width: 1920px;
 }
 
-.chart::before {
+.chart-card {
+  padding-left: 2em;
+  padding-bottom: 2em;
+}
+
+.chart {
+  /* margin-top: 3rem; */
+}
+
+/* .chart::before {
   position: absolute;
   top: 50px;
   left: 300px;
@@ -26,12 +41,12 @@ nav .brand-logo i.material-icons {
   width: 400px;
   height: 300px;
   content: " ";
-  /* background-image: url("maxresdefault.jpg"); */
+  background-image: url("maxresdefault.jpg");
   background-repeat: no-repeat;
   background-position: 50% 0;
   background-size: cover;
   opacity: 0.3;
-}
+} */
 
 .tooltip {
   position: absolute;

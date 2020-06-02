@@ -11,13 +11,16 @@ var margin = {
 var width = svgWidth - margin.left - margin.right;
 var height = svgHeight - margin.top - margin.bottom;
 
+var radius = 10;
+
 // Create an SVG wrapper, append an SVG group that will hold our chart,
 // and shift the latter by left and top margins.
 var svg = d3
   .select(".chart")
   .append("svg")
-  .attr("width", svgWidth)
-  .attr("height", svgHeight);
+  .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
+//.attr("width", svgWidth)
+//.attr("height", svgHeight);
 
 // Append an SVG group
 var chartGroup = svg.append("g")
@@ -71,7 +74,7 @@ function renderAxes(newXScale, xAxis, newYScale, yAxis) {
 
 // function used for updating circles group with a transition to
 // new circles
-function renderCircles(circlesGroup, newXScale, chosenXAxis, newYScale, chosenYAxis) {
+function updateCircles(circlesGroup, newXScale, chosenXAxis, newYScale, chosenYAxis) {
 
   circlesGroup.transition()
     .ease(d3.easeCircle)
@@ -82,16 +85,14 @@ function renderCircles(circlesGroup, newXScale, chosenXAxis, newYScale, chosenYA
   return circlesGroup;
 }
 
-function renderText(textGroup, newXScale, chosenXAxis, newYScale, chosenYAxis) {
+function updateText(textGroup, newXScale, chosenXAxis, newYScale, chosenYAxis) {
 
   textGroup.transition()
     .ease(d3.easeCircle)
     .duration(1000)
     .attr("x", d => newXScale(d[chosenXAxis]))
-    .attr("y", d => newYScale(d[chosenYAxis]) + 2)
-    .text(function (d) { return d.abbr })
-    .attr("font-family", "sans-serif")
-    .attr("fill", "white")
+    .attr("y", d => newYScale(d[chosenYAxis]))
+    .text(d => d.abbr)
 
   return textGroup;
 }
@@ -259,19 +260,20 @@ d3.csv("assets/data/data.csv").then(function (acsData, err) {
 
   var circlesGroup = circles
     .append("circle")
+    .attr("r", radius)
+    .attr("fill", "#45ADA8")
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
     .attr("cy", d => yLinearScale(d[chosenYAxis]))
-    .attr("r", 10)
-    .attr("fill", "#45ADA8")
 
   var textGroup = circles.append('text')
-    .attr("x", d => xLinearScale(d[chosenXAxis]))
-    .attr("y", d => yLinearScale(d[chosenYAxis]) + 2)
-    .text(function (d) { return d.abbr; })
-    .attr("font-family", "sans-serif")
-    .attr("font-size", ".6rem")
-    .attr("fill", "white")
     .attr("text-anchor", "middle")
+    .attr("alignment-baseline", "middle")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", radius + 'px')
+    .attr("fill", "white")
+    .attr("x", d => xLinearScale(d[chosenXAxis]))
+    .attr("y", d => yLinearScale(d[chosenYAxis]))
+    .text(d => d.abbr)
 
   // updateToolTip function above csv import
   updateToolTip(circles, chosenXAxis, chosenYAxis);
@@ -299,8 +301,8 @@ d3.csv("assets/data/data.csv").then(function (acsData, err) {
         yAxis = axes[1]
 
         // updates circles with new x values
-        circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
-        textGroup = renderText(textGroup, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
+        circlesGroup = updateCircles(circlesGroup, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
+        textGroup = updateText(textGroup, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
 
         // updates tooltips with new info
         updateToolTip(circles, chosenXAxis, chosenYAxis);
@@ -364,8 +366,8 @@ d3.csv("assets/data/data.csv").then(function (acsData, err) {
         yAxis = axes[1]
 
         // updates circles with new y values
-        circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
-        textGroup = renderText(textGroup, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
+        circlesGroup = updateCircles(circlesGroup, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
+        textGroup = updateText(textGroup, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
 
         // updates tooltips with new info
         updateToolTip(circles, chosenXAxis, chosenYAxis);
