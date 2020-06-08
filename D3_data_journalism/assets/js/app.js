@@ -1,6 +1,8 @@
+// declare svg initial size
 var svgWidth = 960;
 var svgHeight = 500;
 
+// declare margins
 var margin = {
   top: 20,
   right: 40,
@@ -11,6 +13,7 @@ var margin = {
 var width = svgWidth - margin.left - margin.right;
 var height = svgHeight - margin.top - margin.bottom;
 
+// size of bubbles
 var radius = 10;
 
 // Create an SVG wrapper, append an SVG group that will hold our chart,
@@ -18,7 +21,7 @@ var radius = 10;
 var svg = d3
   .select(".chart")
   .append("svg")
-  .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
+  .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`) // make svg responsive
 //.attr("width", svgWidth)
 //.attr("height", svgHeight);
 
@@ -34,8 +37,8 @@ var chosenYAxis = "healthcare";
 function xScale(data, chosenXAxis) {
   // create scales
   var xLinearScale = d3.scaleLinear()
-    .domain([d3.min(data, d => d[chosenXAxis]) * 0.8,
-    d3.max(data, d => d[chosenXAxis]) * 1.2
+    .domain([d3.min(data, d => d[chosenXAxis]) * 0.9,
+    d3.max(data, d => d[chosenXAxis]) * 1.1
     ])
     .range([0, width]);
 
@@ -47,8 +50,8 @@ function xScale(data, chosenXAxis) {
 function yScale(data, chosenYAxis) {
   // create scales
   var yLinearScale = d3.scaleLinear()
-    .domain([d3.min(data, d => d[chosenYAxis]) * 0.8,
-    d3.max(data, d => d[chosenYAxis]) * 1.2
+    .domain([d3.min(data, d => d[chosenYAxis]) * 0.9,
+    d3.max(data, d => d[chosenYAxis]) * 1.1
     ])
     .range([height, 0]);
 
