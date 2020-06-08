@@ -8,9 +8,102 @@ main {
   flex: 1 0 auto;
 }
 
+nav .brand-logo {
+  left: 0;
+  transform: translateX(0);
+}
+
 nav .brand-logo i.material-icons {
   font-size: 3rem;
   margin-right: 5px;
+}
+
+.container {
+  width: 95%;
+  max-width: 1920px;
+}
+
+.chart-card {
+  padding-left: 2em;
+  padding-bottom: 2em;
+}
+
+.chart {
+  /* margin-top: 3rem; */
+}
+
+/* .chart::before {
+  position: absolute;
+  top: 50px;
+  left: 300px;
+  z-index: -1;
+  display: block;
+  width: 400px;
+  height: 300px;
+  content: " ";
+  background-image: url("maxresdefault.jpg");
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: cover;
+  opacity: 0.3;
+} */
+
+.tooltip {
+  position: absolute;
+  width: 135px;
+  height: auto;
+  padding: 2px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font: 12px sans-serif;
+  color: white;
+  text-align: center;
+  background: #ee6e73;
+  border: 0;
+  border-radius: 10px;
+  transition: opacity 300ms;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.tooltip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 20px;
+  line-height: 1;
+  color: #ee6e73;
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips specifically */
+.tooltip.n:after {
+  margin: -2px 0 0 0;
+  top: 100%;
+  left: 42%;
+}
+
+
+.active {
+  font-weight: bold;
+  /* fill: #ee6e73 */;
+  fill: #547980;
+  transition: fill 0.3s ease-out;
+  text-anchor: middle;
+  cursor: pointer;
+}
+
+.inactive {
+  font-weight: bold;
+  fill: rgba(139, 139, 139, 0.5);
+  transition: fill 0.3s ease-out;
+  text-anchor: middle;
+  cursor: pointer;
+}
+
+.inactive:hover {
+  fill: rgba(69, 173, 168, 0.836);
+  cursor: pointer;
 }
 
 .page-footer {
