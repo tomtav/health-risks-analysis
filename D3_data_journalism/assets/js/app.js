@@ -158,7 +158,7 @@ function updateToolTip(circlesGroup, chosenXAxis, chosenYAxis) {
 }
 
 // Retrieve data from the CSV file and execute everything below
-d3.csv("assets/data/data.csv").then(function (acsData, err) {
+d3.csv("./assets/data/data.csv").then(function (acsData, err) {
   if (err) throw err;
 
   console.log(acsData)
